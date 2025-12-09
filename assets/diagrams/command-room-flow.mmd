@@ -1,0 +1,40 @@
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#6366f1', 'secondaryColor': '#818cf8', 'tertiaryColor': '#1e1b4b', 'primaryTextColor': '#fff', 'lineColor': '#818cf8', 'primaryBorderColor': '#4f46e5'}}}%%
+sequenceDiagram
+    participant User
+    participant Extension as Chrome Extension
+    participant CR as Command Room
+    participant MCP as MCP Server
+    participant AI as LLaMA Agent
+    participant Client as External MCP Client
+
+    rect rgb(30, 27, 75)
+        Note over User,Extension: Activity Capture
+        User->>Extension: Performs actions
+        Extension->>CR: Log activity
+        CR->>CR: Store & analyze patterns
+    end
+
+    rect rgb(49, 46, 129)
+        Note over CR,AI: Internal Access
+        AI->>MCP: rea_search_command_room
+        MCP->>CR: Query activities
+        CR-->>MCP: Return results + suggestions
+        MCP-->>AI: Activity data
+        AI->>AI: Suggest automations
+    end
+
+    rect rgb(67, 56, 202)
+        Note over Client,CR: External Access
+        Client->>MCP: resources/read(rea://command-room/recent)
+        MCP->>CR: Get recent activity
+        CR-->>MCP: Recent entries
+        MCP-->>Client: Resource content
+    end
+
+    rect rgb(99, 102, 241)
+        Note over Client,CR: Automation Analysis
+        Client->>MCP: prompts/get(rea_automation_analysis)
+        MCP->>CR: Gather activity data
+        CR-->>MCP: Patterns & suggestions
+        MCP-->>Client: Analysis prompt
+    end

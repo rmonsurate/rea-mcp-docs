@@ -1,0 +1,69 @@
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#6366f1', 'primaryTextColor': '#fff', 'primaryBorderColor': '#818cf8', 'lineColor': '#94a3b8', 'secondaryColor': '#1e293b', 'tertiaryColor': '#334155'}}}%%
+classDiagram
+    class MCPManagerService {
+        -array clients
+        -ServerConfigRepository config
+        +registerServer(name, config)
+        +getClient(name) MCPClient
+        +listAllTools() array
+        +callTool(server, tool, args)
+        +disconnect(name)
+    }
+
+    class MCPClient {
+        <<interface>>
+        +connect(transport)
+        +initialize()
+        +listTools() array
+        +listResources() array
+        +callTool(name, args) mixed
+        +readResource(uri) mixed
+        +disconnect()
+    }
+
+    class StdioMCPClient {
+        -Process process
+        -StreamReader stdin
+        -StreamWriter stdout
+        +connect(config)
+        +sendRequest(method, params)
+        -readResponse()
+    }
+
+    class HttpMCPClient {
+        -HttpClient httpClient
+        -string baseUrl
+        -string sessionId
+        +connect(config)
+        +sendRequest(method, params)
+        -handleSSE()
+    }
+
+    class Transport {
+        <<interface>>
+        +send(message)
+        +receive() message
+        +close()
+    }
+
+    class StdioTransport {
+        -resource stdin
+        -resource stdout
+        +send(message)
+        +receive() message
+    }
+
+    class HttpTransport {
+        -GuzzleClient client
+        -string endpoint
+        +send(message)
+        +receive() message
+    }
+
+    MCPManagerService --> MCPClient
+    MCPClient <|.. StdioMCPClient
+    MCPClient <|.. HttpMCPClient
+    StdioMCPClient --> StdioTransport
+    HttpMCPClient --> HttpTransport
+    Transport <|.. StdioTransport
+    Transport <|.. HttpTransport

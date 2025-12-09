@@ -1,0 +1,38 @@
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#6366f1', 'primaryTextColor': '#fff', 'primaryBorderColor': '#818cf8', 'lineColor': '#94a3b8', 'secondaryColor': '#1e293b', 'tertiaryColor': '#334155'}}}%%
+sequenceDiagram
+    participant U as User
+    participant R as Rea Platform
+    participant A as AI Agent
+    participant M as MCP Client
+    participant S as MCP Server
+    participant E as External API
+
+    rect rgb(30, 41, 59)
+        Note over M,S: Initialization Phase
+        M->>S: initialize(protocolVersion, capabilities)
+        S-->>M: serverInfo, capabilities
+        M->>S: notifications/initialized
+    end
+
+    rect rgb(51, 65, 85)
+        Note over U,E: Tool Discovery
+        U->>R: "Search my Notion workspace"
+        R->>A: Process user request
+        A->>M: tools/list
+        M->>S: tools/list
+        S-->>M: Available tools
+        M-->>A: [search, get_page, create_page, ...]
+    end
+
+    rect rgb(30, 41, 59)
+        Note over U,E: Tool Execution
+        A->>A: Select appropriate tool
+        A->>M: tools/call("search", {query: "..."})
+        M->>S: tools/call
+        S->>E: API Request
+        E-->>S: API Response
+        S-->>M: Tool result
+        M-->>A: Search results
+        A-->>R: Formatted response
+        R-->>U: Display results
+    end

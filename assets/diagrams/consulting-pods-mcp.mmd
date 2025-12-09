@@ -1,0 +1,51 @@
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#6366f1', 'secondaryColor': '#818cf8', 'tertiaryColor': '#1e1b4b', 'primaryTextColor': '#fff', 'lineColor': '#818cf8', 'primaryBorderColor': '#4f46e5'}}}%%
+flowchart TB
+    subgraph External["External MCP Clients"]
+        Claude["Claude Desktop"]
+        Cursor["Cursor IDE"]
+        Other["Other Clients"]
+    end
+
+    subgraph ReaServer["Rea MCP Server"]
+        direction TB
+
+        subgraph Tools["Tools"]
+            CreatePod["rea_create_pod"]
+            RunPod["rea_run_pod"]
+            ListPods["rea_list_pods"]
+            SearchCR["rea_search_command_room"]
+            TriggerWF["rea_trigger_workflow"]
+        end
+
+        subgraph Resources["Resources"]
+            PodResource["rea://pods/{id}"]
+            CRResource["rea://command-room/recent"]
+            WFResource["rea://workflows"]
+        end
+
+        subgraph Prompts["Prompts"]
+            AutoAnalysis["rea_automation_analysis"]
+            PodBuilder["rea_pod_builder"]
+        end
+    end
+
+    subgraph ReaCore["Rea Core Services"]
+        PodService["Consulting Pod Service"]
+        CRService["Command Room Service"]
+        WFService["n8n Workflow Service"]
+
+        subgraph Pods["Consulting Pods"]
+            Pod1["Research Pod"]
+            Pod2["Analysis Pod"]
+            Pod3["Writing Pod"]
+        end
+    end
+
+    External --> ReaServer
+
+    Tools --> ReaCore
+    Resources --> ReaCore
+
+    PodService --> Pods
+    CRService --> CRResource
+    WFService --> TriggerWF

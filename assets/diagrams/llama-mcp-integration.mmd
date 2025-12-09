@@ -1,0 +1,59 @@
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#6366f1', 'secondaryColor': '#818cf8', 'tertiaryColor': '#1e1b4b', 'primaryTextColor': '#fff', 'lineColor': '#818cf8', 'primaryBorderColor': '#4f46e5'}}}%%
+flowchart TB
+    subgraph User["User Interface"]
+        Chat["Chat Input"]
+        Response["AI Response"]
+    end
+
+    subgraph ReaAgent["Rea Agent Layer"]
+        McpAgent["MCP-Aware Agent"]
+
+        subgraph Reflection["Reflection Framework"]
+            Understand["1. Understand"]
+            Plan["2. Plan"]
+            Execute["3. Execute"]
+            Verify["4. Verify"]
+            Reflect["5. Reflect"]
+        end
+
+        PromptBuilder["Reflection Prompt Builder"]
+    end
+
+    subgraph LLaMA["LLaMA Engine"]
+        SystemPrompt["System Prompt<br>+ Tool Definitions"]
+        ToolCalling["Tool Calling Logic"]
+        Completion["Text Completion"]
+    end
+
+    subgraph MCPHost["MCP Host"]
+        ClientPool["Client Pool"]
+        ToolRegistry["Tool Registry"]
+
+        subgraph Clients["Connected Servers"]
+            Notion["Notion"]
+            Slack["Slack"]
+            GitHub["GitHub"]
+            Custom["Custom"]
+        end
+    end
+
+    Chat --> McpAgent
+    McpAgent --> PromptBuilder
+    PromptBuilder --> Understand
+    Understand --> Plan
+    Plan --> Execute
+    Execute --> Verify
+    Verify --> Reflect
+    Reflect --> PromptBuilder
+
+    PromptBuilder --> SystemPrompt
+    SystemPrompt --> LLaMA
+
+    McpAgent --> ToolRegistry
+    ToolRegistry --> ClientPool
+    ClientPool --> Clients
+
+    ToolCalling --> ClientPool
+    Clients --> ToolCalling
+    ToolCalling --> Completion
+    Completion --> Response

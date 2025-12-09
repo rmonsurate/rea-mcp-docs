@@ -1,0 +1,45 @@
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#6366f1', 'primaryTextColor': '#fff', 'primaryBorderColor': '#818cf8', 'lineColor': '#94a3b8', 'secondaryColor': '#1e293b', 'tertiaryColor': '#334155'}}}%%
+sequenceDiagram
+    participant U as User
+    participant R as Rea Platform
+    participant V as Vault/Secrets
+    participant M as MCP Client
+    participant S as MCP Server
+    participant A as External API
+
+    rect rgb(30, 41, 59)
+        Note over U,A: Configuration Phase
+        U->>R: Configure Notion Integration
+        R->>V: Store API Token (encrypted)
+        V-->>R: Token ID
+        R-->>U: Integration configured
+    end
+
+    rect rgb(51, 65, 85)
+        Note over U,A: Runtime Authentication
+        U->>R: Request using Notion
+        R->>V: Retrieve token
+        V-->>R: Decrypted token
+        R->>M: Initialize with token
+        M->>S: Start server with env
+        S-->>M: Server ready
+    end
+
+    rect rgb(30, 41, 59)
+        Note over U,A: Secure Tool Execution
+        R->>M: tools/call with context
+        M->>S: JSON-RPC request
+        S->>S: Validate request
+        S->>A: API call with token
+        A-->>S: Response
+        S->>S: Sanitize response
+        S-->>M: Safe result
+        M-->>R: Tool result
+    end
+
+    rect rgb(127, 29, 29)
+        Note over U,A: Human-in-the-Loop
+        R->>U: Confirm destructive action?
+        U-->>R: Approved
+        R->>M: Execute with confirmation
+    end
