@@ -1,8 +1,8 @@
 site_name: Rea MCP Integration Guide
 site_description: Documentation for implementing MCP (Model Context Protocol) connectors in Rea
 site_url: https://reamcp.fabriccode.ca
-repo_url: https://github.com/fabriccode/rea-mcp-docs
-repo_name: fabriccode/rea-mcp-docs
+repo_url: https://github.com/rmonsurate/rea-mcp-docs
+repo_name: rmonsurate/rea-mcp-docs
 
 theme:
   name: material
