@@ -1,4 +1,4 @@
-%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#6366f1', 'secondaryColor': '#818cf8', 'tertiaryColor': '#1e1b4b', 'primaryTextColor': '#fff', 'lineColor': '#818cf8', 'primaryBorderColor': '#4f46e5'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#a484fb', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#a484fb', 'secondaryColor': '#22c55a', 'lineColor': '#a484fb', 'textColor': '#f8fafc', 'actorBkg': '#a484fb', 'actorBorder': '#a484fb', 'actorTextColor': '#ffffff', 'actorLineColor': '#a484fb', 'signalColor': '#a484fb', 'signalTextColor': '#f8fafc', 'labelBoxBkgColor': '#0f172a', 'labelBoxBorderColor': '#a484fb', 'labelTextColor': '#f8fafc', 'loopTextColor': '#f8fafc', 'noteBorderColor': '#22c55a', 'noteBkgColor': '#14532d', 'noteTextColor': '#ffffff', 'activationBorderColor': '#a484fb', 'activationBkgColor': '#1e293b', 'sequenceNumberColor': '#ffffff'}}}%%
 sequenceDiagram
     participant User
     participant Extension as Chrome Extension
@@ -7,14 +7,14 @@ sequenceDiagram
     participant AI as LLaMA Agent
     participant Client as External MCP Client
 
-    rect rgb(30, 27, 75)
+    rect rgba(164, 132, 251, 0.15)
         Note over User,Extension: Activity Capture
         User->>Extension: Performs actions
         Extension->>CR: Log activity
         CR->>CR: Store & analyze patterns
     end
 
-    rect rgb(49, 46, 129)
+    rect rgba(34, 197, 94, 0.15)
         Note over CR,AI: Internal Access
         AI->>MCP: rea_search_command_room
         MCP->>CR: Query activities
@@ -23,7 +23,7 @@ sequenceDiagram
         AI->>AI: Suggest automations
     end
 
-    rect rgb(67, 56, 202)
+    rect rgba(164, 132, 251, 0.15)
         Note over Client,CR: External Access
         Client->>MCP: resources/read(rea://command-room/recent)
         MCP->>CR: Get recent activity
@@ -31,7 +31,7 @@ sequenceDiagram
         MCP-->>Client: Resource content
     end
 
-    rect rgb(99, 102, 241)
+    rect rgba(34, 197, 94, 0.15)
         Note over Client,CR: Automation Analysis
         Client->>MCP: prompts/get(rea_automation_analysis)
         MCP->>CR: Gather activity data

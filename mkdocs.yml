@@ -7,18 +7,19 @@ repo_name: rmonsurate/rea-mcp-docs
 theme:
   name: material
   palette:
-    - scheme: default
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
     - scheme: slate
-      primary: indigo
-      accent: indigo
+      primary: deep purple
+      accent: light green
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+    - scheme: default
+      primary: deep purple
+      accent: light green
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  custom_dir: docs/overrides
   features:
     - navigation.instant
     - navigation.tracking
@@ -84,3 +85,9 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/rea-pro
   generator: false
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/extra.js

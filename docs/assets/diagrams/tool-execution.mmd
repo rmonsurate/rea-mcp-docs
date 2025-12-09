@@ -1,25 +1,25 @@
-%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#6366f1', 'primaryTextColor': '#fff', 'primaryBorderColor': '#818cf8', 'lineColor': '#94a3b8', 'secondaryColor': '#1e293b', 'tertiaryColor': '#334155'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#a484fb', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#a484fb', 'secondaryColor': '#22c55a', 'secondaryTextColor': '#ffffff', 'tertiaryColor': '#1e293b', 'lineColor': '#a484fb', 'textColor': '#f8fafc', 'mainBkg': '#0f172a', 'nodeBorder': '#a484fb', 'nodeTextColor': '#ffffff'}}}%%
 flowchart TD
-    A[User Request] --> B{AI Agent<br/>Analysis}
-    B --> C[Identify Required Tool]
-    C --> D[Validate Parameters]
-    D --> E{Parameters<br/>Valid?}
-    E -->|No| F[Return Error]
-    E -->|Yes| G[MCP Client]
-    G --> H[JSON-RPC Request]
-    H --> I[MCP Server]
-    I --> J[Execute Tool Logic]
-    J --> K{External API<br/>Call?}
-    K -->|Yes| L[Call External API]
-    L --> M[Process Response]
+    A["User Request"] --> B{"AI Agent<br/>Analysis"}
+    B --> C["Identify Required Tool"]
+    C --> D["Validate Parameters"]
+    D --> E{"Parameters<br/>Valid?"}
+    E -->|No| F["Return Error"]
+    E -->|Yes| G["MCP Client"]
+    G --> H["JSON-RPC Request"]
+    H --> I["MCP Server"]
+    I --> J["Execute Tool Logic"]
+    J --> K{"External API<br/>Call?"}
+    K -->|Yes| L["Call External API"]
+    L --> M["Process Response"]
     K -->|No| M
-    M --> N[Format Result]
-    N --> O[JSON-RPC Response]
-    O --> P[MCP Client]
-    P --> Q[AI Agent]
-    Q --> R[Format for User]
-    R --> S[Display Result]
+    M --> N["Format Result"]
+    N --> O["JSON-RPC Response"]
+    O --> P["MCP Client"]
+    P --> Q["AI Agent"]
+    Q --> R["Format for User"]
+    R --> S["Display Result"]
 
-    style A fill:#6366f1,stroke:#818cf8
-    style S fill:#22c55e,stroke:#4ade80
-    style F fill:#ef4444,stroke:#f87171
+    style A fill:#a484fb,stroke:#a484fb,stroke-width:2px,color:#ffffff
+    style S fill:#22c55a,stroke:#22c55a,stroke-width:2px,color:#ffffff
+    style F fill:#dc2626,stroke:#dc2626,stroke-width:2px,color:#ffffff

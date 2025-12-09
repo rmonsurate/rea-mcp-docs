@@ -1,0 +1,161 @@
+/* Rea Brand Colors */
+:root {
+  --rea-purple: #a484fb;
+  --rea-purple-dim: rgba(164, 132, 251, 0.7);
+  --rea-green: #22c55a;
+  --rea-dark-1: #020817;
+  --rea-dark-2: #0f172a;
+  --rea-dark-3: #1e293b;
+  --rea-text: #f8fafc;
+}
+
+/* Dark mode overrides to match Rea */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #a484fb;
+  --md-primary-fg-color--light: rgba(164, 132, 251, 0.7);
+  --md-primary-fg-color--dark: #8b6cf5;
+  --md-accent-fg-color: #22c55a;
+  --md-default-bg-color: #020817;
+  --md-default-bg-color--light: #0f172a;
+  --md-default-bg-color--lighter: #1e293b;
+}
+
+/* Clickable images - open in new tab at full resolution */
+.md-content img {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 8px;
+  border: 1px solid var(--rea-dark-3);
+}
+
+.md-content img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 32px rgba(164, 132, 251, 0.2);
+  border-color: var(--rea-purple);
+}
+
+/* Make all diagram images links to full-size versions */
+.md-content p > img,
+.md-content figure img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Lightbox overlay */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(2, 8, 23, 0.95);
+  z-index: 9999;
+  cursor: zoom-out;
+  backdrop-filter: blur(10px);
+}
+
+.lightbox.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.2s ease;
+}
+
+.lightbox img {
+  max-width: 95%;
+  max-height: 95%;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--rea-purple);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 40px;
+  color: var(--rea-text);
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.lightbox-close:hover {
+  opacity: 1;
+  color: var(--rea-purple);
+}
+
+.lightbox-hint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--rea-text);
+  opacity: 0.6;
+  font-size: 14px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Diagram figure captions */
+figure figcaption {
+  text-align: center;
+  color: var(--rea-text);
+  opacity: 0.7;
+  font-size: 0.9em;
+  margin-top: 8px;
+}
+
+/* Code blocks with Rea theme */
+[data-md-color-scheme="slate"] .highlight {
+  background: var(--rea-dark-2) !important;
+}
+
+[data-md-color-scheme="slate"] code {
+  background: var(--rea-dark-3);
+}
+
+/* Navigation accent */
+[data-md-color-scheme="slate"] .md-nav__link--active {
+  color: var(--rea-purple) !important;
+}
+
+/* Tables */
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) {
+  border: 1px solid var(--rea-dark-3);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
+  background-color: var(--rea-dark-2);
+  border-color: var(--rea-dark-3);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) td {
+  border-color: var(--rea-dark-3);
+}
+
+/* Admonitions with Rea colors */
+[data-md-color-scheme="slate"] .md-typeset .admonition.tip,
+[data-md-color-scheme="slate"] .md-typeset details.tip {
+  border-color: var(--rea-purple);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.tip > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset details.tip > summary {
+  background-color: rgba(164, 132, 251, 0.1);
+}
+
+/* Info boxes */
+[data-md-color-scheme="slate"] .md-typeset .admonition.info,
+[data-md-color-scheme="slate"] .md-typeset details.info {
+  border-color: var(--rea-green);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition.info > .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset details.info > summary {
+  background-color: rgba(34, 197, 94, 0.1);
+}

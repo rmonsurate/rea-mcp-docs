@@ -1,27 +1,27 @@
-%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#6366f1', 'primaryTextColor': '#fff', 'primaryBorderColor': '#818cf8', 'lineColor': '#94a3b8', 'secondaryColor': '#1e293b', 'tertiaryColor': '#334155'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#a484fb', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#a484fb', 'secondaryColor': '#22c55a', 'secondaryTextColor': '#ffffff', 'secondaryBorderColor': '#22c55a', 'tertiaryColor': '#1e293b', 'tertiaryTextColor': '#f8fafc', 'lineColor': '#a484fb', 'textColor': '#f8fafc', 'mainBkg': '#0f172a', 'nodeBorder': '#a484fb', 'clusterBkg': '#020817', 'clusterBorder': '#a484fb', 'titleColor': '#ffffff', 'nodeTextColor': '#ffffff', 'edgeLabelBackground': '#0f172a'}}}%%
 graph TB
-    subgraph Host["Rea Platform (PHP/Laravel)"]
-        UI[Web UI<br/>Vue.js/Nuxt]
-        API[API Controller]
-        AgentService[Agent Service]
-        MCPManager[MCP Manager<br/>Service]
+    subgraph Host["Rea Platform - PHP/Laravel"]
+        UI["Web UI<br/>Vue.js/Nuxt"]
+        API["API Controller"]
+        AgentService["Agent Service"]
+        MCPManager["MCP Manager<br/>Service"]
 
         subgraph Clients["MCP Client Pool"]
-            C1[Stdio Client]
-            C2[HTTP Client]
+            C1["Stdio Client"]
+            C2["HTTP Client"]
         end
     end
 
     subgraph Servers["MCP Servers"]
-        S1[Notion MCP<br/>TypeScript]
-        S2[Slack MCP<br/>Python]
-        S3[Custom MCP<br/>PHP]
+        S1["Notion MCP<br/>TypeScript"]
+        S2["Slack MCP<br/>Python"]
+        S3["Custom MCP<br/>PHP"]
     end
 
     subgraph External["External APIs"]
-        NotionAPI[Notion API]
-        SlackAPI[Slack API]
-        CustomAPI[Custom API]
+        NotionAPI["Notion API"]
+        SlackAPI["Slack API"]
+        CustomAPI["Custom API"]
     end
 
     UI --> API
