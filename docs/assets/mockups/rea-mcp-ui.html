@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rea MCP Integration UI Mockup</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 40px;
+      line-height: 1.6;
+    }
+
+    .page-title {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 700;
+      color: #818cf8;
+      margin-bottom: 60px;
+    }
+
+    .scenario {
+      margin-bottom: 80px;
+    }
+
+    .scenario-title {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .scenario-title::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: #6366f1;
+      border-radius: 2px;
+    }
+
+    .chat-container {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 900px;
+      border: 1px solid #334155;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+
+    .message {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .message:last-child {
+      margin-bottom: 0;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .avatar.user {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+    }
+
+    .avatar.assistant {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+    }
+
+    .message-content {
+      flex: 1;
+    }
+
+    .message-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .sender-name {
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    .timestamp {
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    .message-text {
+      color: #cbd5e1;
+      font-size: 15px;
+    }
+
+    .tool-call {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 12px;
+    }
+
+    .tool-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .tool-icon {
+      width: 28px;
+      height: 28px;
+      background: #6366f1;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tool-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: white;
+    }
+
+    .tool-name {
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 13px;
+      color: #818cf8;
+      font-weight: 600;
+    }
+
+    .tool-status {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      margin-left: auto;
+    }
+
+    .tool-status.running {
+      background: rgba(234, 179, 8, 0.2);
+      color: #fbbf24;
+    }
+
+    .tool-status.success {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+    }
+
+    .tool-status.error {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+
+    .tool-params {
+      background: #1e293b;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 12px;
+      color: #94a3b8;
+      overflow-x: auto;
+    }
+
+    .tool-params .key {
+      color: #818cf8;
+    }
+
+    .tool-params .value {
+      color: #22c55e;
+    }
+
+    .tool-result {
+      background: #1e293b;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+
+    .result-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #334155;
+    }
+
+    .result-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .result-icon {
+      width: 32px;
+      height: 32px;
+      background: #334155;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .result-details {
+      flex: 1;
+    }
+
+    .result-title {
+      color: #f1f5f9;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .result-meta {
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    /* Settings UI */
+    .settings-panel {
+      background: #1e293b;
+      border-radius: 16px;
+      max-width: 700px;
+      border: 1px solid #334155;
+      overflow: hidden;
+    }
+
+    .settings-header {
+      background: #0f172a;
+      padding: 20px 24px;
+      border-bottom: 1px solid #334155;
+    }
+
+    .settings-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    .settings-body {
+      padding: 24px;
+    }
+
+    .setting-group {
+      margin-bottom: 24px;
+    }
+
+    .setting-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .setting-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #e2e8f0;
+      margin-bottom: 8px;
+    }
+
+    .setting-description {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+
+    .input-field {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: #e2e8f0;
+      font-size: 14px;
+      font-family: 'SF Mono', Monaco, monospace;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+
+    .server-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .server-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #0f172a;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid #334155;
+    }
+
+    .server-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .server-icon.notion {
+      background: #000;
+    }
+
+    .server-icon.slack {
+      background: #4A154B;
+    }
+
+    .server-icon.custom {
+      background: #6366f1;
+    }
+
+    .server-info {
+      flex: 1;
+    }
+
+    .server-name {
+      font-weight: 600;
+      color: #f1f5f9;
+      margin-bottom: 4px;
+    }
+
+    .server-status {
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .status-dot.connected {
+      background: #22c55e;
+    }
+
+    .status-dot.disconnected {
+      background: #64748b;
+    }
+
+    .status-dot.error {
+      background: #ef4444;
+    }
+
+    .server-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #6366f1;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #334155;
+      color: #e2e8f0;
+    }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+
+    /* Tool Discovery Panel */
+    .tools-panel {
+      background: #1e293b;
+      border-radius: 16px;
+      max-width: 800px;
+      border: 1px solid #334155;
+      overflow: hidden;
+    }
+
+    .tools-header {
+      background: #0f172a;
+      padding: 20px 24px;
+      border-bottom: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tools-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    .tools-count {
+      background: #6366f1;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 24px;
+    }
+
+    .tool-card {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 16px;
+      transition: all 0.2s;
+    }
+
+    .tool-card:hover {
+      border-color: #6366f1;
+    }
+
+    .tool-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .tool-card-icon {
+      width: 36px;
+      height: 36px;
+      background: #334155;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tool-card-name {
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 14px;
+      color: #818cf8;
+      font-weight: 600;
+    }
+
+    .tool-card-description {
+      font-size: 13px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    .tool-card-source {
+      margin-top: 12px;
+      font-size: 11px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Approval Dialog */
+    .approval-dialog {
+      background: #1e293b;
+      border-radius: 16px;
+      max-width: 500px;
+      border: 1px solid #334155;
+      overflow: hidden;
+    }
+
+    .approval-header {
+      background: rgba(234, 179, 8, 0.1);
+      padding: 20px 24px;
+      border-bottom: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .approval-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(234, 179, 8, 0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fbbf24;
+    }
+
+    .approval-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fbbf24;
+    }
+
+    .approval-body {
+      padding: 24px;
+    }
+
+    .approval-message {
+      color: #cbd5e1;
+      margin-bottom: 16px;
+    }
+
+    .approval-details {
+      background: #0f172a;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+
+    .approval-detail-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .approval-detail-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .approval-detail-label {
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .approval-detail-value {
+      color: #e2e8f0;
+      font-size: 13px;
+      font-family: 'SF Mono', Monaco, monospace;
+    }
+
+    .approval-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .btn-approve {
+      background: #22c55e;
+      color: white;
+    }
+
+    .btn-deny {
+      background: #ef4444;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="page-title">Rea MCP Integration - UI Mockups</h1>
+
+  <!-- Scenario 1: Chat with MCP Tool Call -->
+  <div class="scenario">
+    <div class="scenario-title">1. Agent Chat with MCP Tool Execution</div>
+    <div class="chat-container">
+      <div class="message">
+        <div class="avatar user">RM</div>
+        <div class="message-content">
+          <div class="message-header">
+            <span class="sender-name">Ryan</span>
+            <span class="timestamp">2:34 PM</span>
+          </div>
+          <div class="message-text">
+            Search my Notion workspace for all meeting notes from the past week.
+          </div>
+        </div>
+      </div>
+
+      <div class="message">
+        <div class="avatar assistant">AI</div>
+        <div class="message-content">
+          <div class="message-header">
+            <span class="sender-name">Rea Agent</span>
+            <span class="timestamp">2:34 PM</span>
+          </div>
+          <div class="message-text">
+            I'll search your Notion workspace for recent meeting notes.
+          </div>
+
+          <div class="tool-call">
+            <div class="tool-header">
+              <div class="tool-icon">
+                <svg viewBox="0 0 24 24"><path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z"/></svg>
+              </div>
+              <span class="tool-name">notion.search</span>
+              <span class="tool-status success">Success</span>
+            </div>
+            <div class="tool-params">
+              {<br>
+              &nbsp;&nbsp;<span class="key">"query"</span>: <span class="value">"meeting notes"</span>,<br>
+              &nbsp;&nbsp;<span class="key">"filter"</span>: {<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"property"</span>: <span class="value">"created_time"</span>,<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"last_week"</span>: <span class="value">true</span><br>
+              &nbsp;&nbsp;}<br>
+              }
+            </div>
+            <div class="tool-result">
+              <div class="result-item">
+                <div class="result-icon">📄</div>
+                <div class="result-details">
+                  <div class="result-title">Weekly Team Standup - Dec 6</div>
+                  <div class="result-meta">Database: Meeting Notes • Updated 2 hours ago</div>
+                </div>
+              </div>
+              <div class="result-item">
+                <div class="result-icon">📄</div>
+                <div class="result-details">
+                  <div class="result-title">Product Roadmap Review</div>
+                  <div class="result-meta">Database: Meeting Notes • Updated yesterday</div>
+                </div>
+              </div>
+              <div class="result-item">
+                <div class="result-icon">📄</div>
+                <div class="result-details">
+                  <div class="result-title">Client Kickoff - Acme Corp</div>
+                  <div class="result-meta">Database: Meeting Notes • Updated 3 days ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="message">
+        <div class="avatar assistant">AI</div>
+        <div class="message-content">
+          <div class="message-header">
+            <span class="sender-name">Rea Agent</span>
+            <span class="timestamp">2:34 PM</span>
+          </div>
+          <div class="message-text">
+            I found <strong>3 meeting notes</strong> from the past week in your Notion workspace:
+            <br><br>
+            1. <strong>Weekly Team Standup - Dec 6</strong> (updated 2 hours ago)<br>
+            2. <strong>Product Roadmap Review</strong> (updated yesterday)<br>
+            3. <strong>Client Kickoff - Acme Corp</strong> (updated 3 days ago)
+            <br><br>
+            Would you like me to summarize any of these notes?
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scenario 2: MCP Server Configuration -->
+  <div class="scenario">
+    <div class="scenario-title">2. MCP Server Configuration Panel</div>
+    <div class="settings-panel">
+      <div class="settings-header">
+        <div class="settings-title">MCP Server Connections</div>
+      </div>
+      <div class="settings-body">
+        <div class="server-list">
+          <div class="server-item">
+            <div class="server-icon notion">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M4 4h16v16H4V4zm2 2v12h12V6H6z"/>
+              </svg>
+            </div>
+            <div class="server-info">
+              <div class="server-name">Notion Workspace</div>
+              <div class="server-status">
+                <span class="status-dot connected"></span>
+                <span style="color: #22c55e;">Connected</span>
+                <span style="color: #64748b; margin-left: 8px;">• 12 tools available</span>
+              </div>
+            </div>
+            <div class="server-actions">
+              <button class="btn btn-secondary">Configure</button>
+              <button class="btn btn-danger">Disconnect</button>
+            </div>
+          </div>
+
+          <div class="server-item">
+            <div class="server-icon slack">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M6 15a2 2 0 110-4 2 2 0 010 4zm4-6a2 2 0 110-4 2 2 0 010 4z"/>
+              </svg>
+            </div>
+            <div class="server-info">
+              <div class="server-name">Slack Workspace</div>
+              <div class="server-status">
+                <span class="status-dot disconnected"></span>
+                <span style="color: #64748b;">Not configured</span>
+              </div>
+            </div>
+            <div class="server-actions">
+              <button class="btn btn-primary">Connect</button>
+            </div>
+          </div>
+
+          <div class="server-item">
+            <div class="server-icon custom">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <div class="server-info">
+              <div class="server-name">Custom Database MCP</div>
+              <div class="server-status">
+                <span class="status-dot error"></span>
+                <span style="color: #ef4444;">Connection error</span>
+              </div>
+            </div>
+            <div class="server-actions">
+              <button class="btn btn-secondary">Retry</button>
+              <button class="btn btn-danger">Remove</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="setting-group" style="margin-top: 24px;">
+          <button class="btn btn-primary" style="width: 100%;">+ Add MCP Server</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scenario 3: Tool Discovery -->
+  <div class="scenario">
+    <div class="scenario-title">3. Available MCP Tools</div>
+    <div class="tools-panel">
+      <div class="tools-header">
+        <div class="tools-title">Discovered Tools</div>
+        <div class="tools-count">12 tools</div>
+      </div>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <div class="tool-card-header">
+            <div class="tool-card-icon">🔍</div>
+            <div class="tool-card-name">search</div>
+          </div>
+          <div class="tool-card-description">
+            Search for pages and databases by title or content
+          </div>
+          <div class="tool-card-source">Source: Notion MCP</div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-card-header">
+            <div class="tool-card-icon">📄</div>
+            <div class="tool-card-name">get_page</div>
+          </div>
+          <div class="tool-card-description">
+            Retrieve a page by ID with all properties and content
+          </div>
+          <div class="tool-card-source">Source: Notion MCP</div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-card-header">
+            <div class="tool-card-icon">➕</div>
+            <div class="tool-card-name">create_page</div>
+          </div>
+          <div class="tool-card-description">
+            Create a new page under a parent page or database
+          </div>
+          <div class="tool-card-source">Source: Notion MCP</div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-card-header">
+            <div class="tool-card-icon">📊</div>
+            <div class="tool-card-name">query_database</div>
+          </div>
+          <div class="tool-card-description">
+            Query a database with filters and sorting options
+          </div>
+          <div class="tool-card-source">Source: Notion MCP</div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-card-header">
+            <div class="tool-card-icon">✏️</div>
+            <div class="tool-card-name">update_page</div>
+          </div>
+          <div class="tool-card-description">
+            Update properties of an existing page
+          </div>
+          <div class="tool-card-source">Source: Notion MCP</div>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-card-header">
+            <div class="tool-card-icon">💬</div>
+            <div class="tool-card-name">add_comment</div>
+          </div>
+          <div class="tool-card-description">
+            Add a comment to a page or block
+          </div>
+          <div class="tool-card-source">Source: Notion MCP</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scenario 4: Tool Approval Dialog -->
+  <div class="scenario">
+    <div class="scenario-title">4. Tool Approval Dialog (Human-in-the-Loop)</div>
+    <div class="approval-dialog">
+      <div class="approval-header">
+        <div class="approval-icon">⚠️</div>
+        <div class="approval-title">Tool Execution Approval Required</div>
+      </div>
+      <div class="approval-body">
+        <div class="approval-message">
+          The AI agent wants to perform the following action. Please review and approve or deny.
+        </div>
+        <div class="approval-details">
+          <div class="approval-detail-row">
+            <span class="approval-detail-label">Tool</span>
+            <span class="approval-detail-value">notion.delete_page</span>
+          </div>
+          <div class="approval-detail-row">
+            <span class="approval-detail-label">Target</span>
+            <span class="approval-detail-value">Old Project Notes</span>
+          </div>
+          <div class="approval-detail-row">
+            <span class="approval-detail-label">Action</span>
+            <span class="approval-detail-value" style="color: #ef4444;">Delete (Permanent)</span>
+          </div>
+          <div class="approval-detail-row">
+            <span class="approval-detail-label">Requested by</span>
+            <span class="approval-detail-value">Rea Agent</span>
+          </div>
+        </div>
+        <div class="approval-actions">
+          <button class="btn btn-secondary">Cancel</button>
+          <button class="btn btn-deny">Deny</button>
+          <button class="btn btn-approve">Approve</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scenario 5: Tool Execution Loading State -->
+  <div class="scenario">
+    <div class="scenario-title">5. Tool Execution in Progress</div>
+    <div class="chat-container" style="max-width: 600px;">
+      <div class="tool-call">
+        <div class="tool-header">
+          <div class="tool-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z"/></svg>
+          </div>
+          <span class="tool-name">notion.query_database</span>
+          <span class="tool-status running">Running...</span>
+        </div>
+        <div class="tool-params">
+          {<br>
+          &nbsp;&nbsp;<span class="key">"database_id"</span>: <span class="value">"abc123..."</span>,<br>
+          &nbsp;&nbsp;<span class="key">"filter"</span>: { <span class="key">"status"</span>: <span class="value">"In Progress"</span> }<br>
+          }
+        </div>
+        <div style="margin-top: 16px; display: flex; align-items: center; gap: 12px;">
+          <div style="width: 200px; height: 4px; background: #334155; border-radius: 2px; overflow: hidden;">
+            <div style="width: 60%; height: 100%; background: linear-gradient(90deg, #6366f1, #818cf8); animation: pulse 1.5s infinite;"></div>
+          </div>
+          <span style="color: #64748b; font-size: 12px;">Querying Notion API...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
+</body>
+</html>

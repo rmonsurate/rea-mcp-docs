@@ -1,0 +1,39 @@
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#6366f1', 'primaryTextColor': '#fff', 'primaryBorderColor': '#818cf8', 'lineColor': '#94a3b8', 'secondaryColor': '#1e293b', 'tertiaryColor': '#334155'}}}%%
+flowchart LR
+    subgraph Rea["Rea Platform"]
+        User[User Request]
+        Agent[AI Agent]
+        Client[PHP MCP Client]
+    end
+
+    subgraph MCP["Notion MCP Server"]
+        Parser[OpenAPI Parser]
+        Proxy[MCP Proxy]
+        HTTP[HTTP Client]
+    end
+
+    subgraph Notion["Notion"]
+        API[Notion API v1]
+        Pages[(Pages)]
+        DBs[(Databases)]
+        Blocks[(Blocks)]
+    end
+
+    User -->|"Search meeting notes"| Agent
+    Agent -->|tools/call| Client
+    Client -->|JSON-RPC| Proxy
+    Proxy --> Parser
+    Parser -->|Generate Tool| Proxy
+    Proxy --> HTTP
+    HTTP -->|POST /v1/search| API
+    API --> Pages
+    API --> DBs
+    API --> Blocks
+    API -->|Results| HTTP
+    HTTP --> Proxy
+    Proxy -->|Tool Result| Client
+    Client --> Agent
+    Agent -->|"Found 5 pages..."| User
+
+    style User fill:#6366f1
+    style API fill:#000000

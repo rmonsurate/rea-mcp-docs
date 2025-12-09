@@ -1,0 +1,86 @@
+site_name: Rea MCP Integration Guide
+site_description: Documentation for implementing MCP (Model Context Protocol) connectors in Rea
+site_url: https://reamcp.fabriccode.ca
+repo_url: https://github.com/fabriccode/rea-mcp-docs
+repo_name: fabriccode/rea-mcp-docs
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+    - search.suggest
+    - search.highlight
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - tags
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Introduction to MCP: getting-started/introduction.md
+    - Architecture Overview: getting-started/architecture.md
+    - Quick Start: getting-started/quickstart.md
+  - Core Concepts:
+    - Tools: concepts/tools.md
+    - Resources: concepts/resources.md
+    - Prompts: concepts/prompts.md
+    - Transports: concepts/transports.md
+    - Rea Components: concepts/rea-components.md
+  - Implementation Guide:
+    - PHP MCP Client: implementation/php-client.md
+    - PHP MCP Server: implementation/php-server.md
+    - Rea Integration: implementation/rea-integration.md
+  - Tutorials:
+    - Notion MCP Integration: tutorials/notion-mcp.md
+    - Building Custom Connectors: tutorials/custom-connectors.md
+  - Reference:
+    - API Reference: reference/api.md
+    - Configuration: reference/configuration.md
+    - Security: reference/security.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/rea-pro
+  generator: false

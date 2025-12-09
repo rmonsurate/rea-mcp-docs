@@ -1,0 +1,37 @@
+%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#6366f1', 'primaryTextColor': '#fff', 'primaryBorderColor': '#818cf8', 'lineColor': '#94a3b8', 'secondaryColor': '#1e293b', 'tertiaryColor': '#334155'}}}%%
+graph TB
+    subgraph Host["Rea Platform (PHP/Laravel)"]
+        UI[Web UI<br/>Vue.js/Nuxt]
+        API[API Controller]
+        AgentService[Agent Service]
+        MCPManager[MCP Manager<br/>Service]
+
+        subgraph Clients["MCP Client Pool"]
+            C1[Stdio Client]
+            C2[HTTP Client]
+        end
+    end
+
+    subgraph Servers["MCP Servers"]
+        S1[Notion MCP<br/>TypeScript]
+        S2[Slack MCP<br/>Python]
+        S3[Custom MCP<br/>PHP]
+    end
+
+    subgraph External["External APIs"]
+        NotionAPI[Notion API]
+        SlackAPI[Slack API]
+        CustomAPI[Custom API]
+    end
+
+    UI --> API
+    API --> AgentService
+    AgentService --> MCPManager
+    MCPManager --> C1
+    MCPManager --> C2
+    C1 -.->|stdio| S1
+    C1 -.->|stdio| S3
+    C2 -.->|HTTP/SSE| S2
+    S1 --> NotionAPI
+    S2 --> SlackAPI
+    S3 --> CustomAPI
