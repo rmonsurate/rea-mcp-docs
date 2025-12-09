@@ -1,4 +1,4 @@
-%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#6366f1', 'primaryTextColor': '#fff', 'primaryBorderColor': '#818cf8', 'lineColor': '#94a3b8', 'secondaryColor': '#1e293b', 'tertiaryColor': '#334155'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#a484fb', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#a484fb', 'secondaryColor': '#22c55a', 'lineColor': '#a484fb', 'textColor': '#f8fafc', 'actorBkg': '#a484fb', 'actorBorder': '#a484fb', 'actorTextColor': '#ffffff', 'actorLineColor': '#a484fb', 'signalColor': '#a484fb', 'signalTextColor': '#f8fafc', 'labelBoxBkgColor': '#0f172a', 'labelBoxBorderColor': '#a484fb', 'labelTextColor': '#f8fafc', 'loopTextColor': '#f8fafc', 'noteBorderColor': '#22c55a', 'noteBkgColor': '#14532d', 'noteTextColor': '#ffffff', 'activationBorderColor': '#a484fb', 'activationBkgColor': '#1e293b', 'sequenceNumberColor': '#ffffff'}}}%%
 sequenceDiagram
     participant U as User
     participant R as Rea Platform
@@ -7,7 +7,7 @@ sequenceDiagram
     participant S as MCP Server
     participant A as External API
 
-    rect rgb(30, 41, 59)
+    rect rgba(164, 132, 251, 0.15)
         Note over U,A: Configuration Phase
         U->>R: Configure Notion Integration
         R->>V: Store API Token (encrypted)
@@ -15,7 +15,7 @@ sequenceDiagram
         R-->>U: Integration configured
     end
 
-    rect rgb(51, 65, 85)
+    rect rgba(34, 197, 94, 0.15)
         Note over U,A: Runtime Authentication
         U->>R: Request using Notion
         R->>V: Retrieve token
@@ -25,7 +25,7 @@ sequenceDiagram
         S-->>M: Server ready
     end
 
-    rect rgb(30, 41, 59)
+    rect rgba(164, 132, 251, 0.15)
         Note over U,A: Secure Tool Execution
         R->>M: tools/call with context
         M->>S: JSON-RPC request
@@ -37,7 +37,7 @@ sequenceDiagram
         M-->>R: Tool result
     end
 
-    rect rgb(127, 29, 29)
+    rect rgba(220, 38, 38, 0.2)
         Note over U,A: Human-in-the-Loop
         R->>U: Confirm destructive action?
         U-->>R: Approved

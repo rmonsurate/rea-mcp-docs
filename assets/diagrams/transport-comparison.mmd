@@ -1,38 +1,38 @@
-%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#6366f1', 'primaryTextColor': '#fff', 'primaryBorderColor': '#818cf8', 'lineColor': '#94a3b8', 'secondaryColor': '#1e293b', 'tertiaryColor': '#334155'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#a484fb', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#a484fb', 'secondaryColor': '#22c55a', 'secondaryTextColor': '#ffffff', 'tertiaryColor': '#1e293b', 'lineColor': '#a484fb', 'textColor': '#f8fafc', 'mainBkg': '#0f172a', 'nodeBorder': '#a484fb', 'clusterBkg': '#020817', 'clusterBorder': '#a484fb', 'nodeTextColor': '#ffffff'}}}%%
 graph TB
     subgraph STDIO["STDIO Transport"]
         direction TB
-        SC[PHP Client Process]
-        SS[MCP Server Process]
+        SC["PHP Client Process"]
+        SS["MCP Server Process"]
         SC -->|"stdin (JSON-RPC)"| SS
         SS -->|"stdout (JSON-RPC)"| SC
 
-        S1[Local Only]
-        S2[Single Client]
-        S3[No Auth Needed]
-        S4[Process Lifecycle]
+        S1["Local Only"]
+        S2["Single Client"]
+        S3["No Auth Needed"]
+        S4["Process Lifecycle"]
     end
 
     subgraph HTTP["HTTP/SSE Transport"]
         direction TB
-        HC[PHP Client]
-        HS[MCP HTTP Server]
+        HC["PHP Client"]
+        HS["MCP HTTP Server"]
         HC -->|"POST /mcp"| HS
         HS -->|"SSE Stream"| HC
 
-        H1[Local or Remote]
-        H2[Multiple Clients]
-        H3[Auth Required]
-        H4[Session Management]
+        H1["Local or Remote"]
+        H2["Multiple Clients"]
+        H3["Auth Required"]
+        H4["Session Management"]
     end
 
     subgraph UseCase["Use Cases"]
-        U1[CLI Tools]
-        U2[Local Servers]
-        U3[Desktop Apps]
-        U4[Web Services]
-        U5[Cloud Servers]
-        U6[Shared Resources]
+        U1["CLI Tools"]
+        U2["Local Servers"]
+        U3["Desktop Apps"]
+        U4["Web Services"]
+        U5["Cloud Servers"]
+        U6["Shared Resources"]
     end
 
     STDIO -.-> U1
@@ -41,6 +41,3 @@ graph TB
     HTTP -.-> U4
     HTTP -.-> U5
     HTTP -.-> U6
-
-    style STDIO fill:#1e293b,stroke:#6366f1
-    style HTTP fill:#1e293b,stroke:#22c55e

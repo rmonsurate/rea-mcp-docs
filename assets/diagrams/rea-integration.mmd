@@ -1,37 +1,37 @@
-%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#6366f1', 'primaryTextColor': '#fff', 'primaryBorderColor': '#818cf8', 'lineColor': '#94a3b8', 'secondaryColor': '#1e293b', 'tertiaryColor': '#334155'}}}%%
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#a484fb', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#a484fb', 'secondaryColor': '#22c55a', 'secondaryTextColor': '#ffffff', 'tertiaryColor': '#1e293b', 'lineColor': '#a484fb', 'textColor': '#f8fafc', 'mainBkg': '#0f172a', 'nodeBorder': '#a484fb', 'clusterBkg': '#020817', 'clusterBorder': '#a484fb', 'nodeTextColor': '#ffffff'}}}%%
 graph TB
     subgraph Laravel["Rea Laravel Backend"]
-        Routes[API Routes]
-        Controller[Agent Controller]
+        Routes["API Routes"]
+        Controller["Agent Controller"]
 
         subgraph Services["Service Layer"]
-            AgentSvc[Agent Service]
-            MCPSvc[MCP Service]
-            AuthSvc[Auth Service]
+            AgentSvc["Agent Service"]
+            MCPSvc["MCP Service"]
+            AuthSvc["Auth Service"]
         end
 
         subgraph MCP["MCP Integration"]
-            Manager[MCP Manager]
-            ClientPool[Client Pool]
-            ConfigRepo[Config Repository]
+            Manager["MCP Manager"]
+            ClientPool["Client Pool"]
+            ConfigRepo["Config Repository"]
         end
 
         subgraph Cache["Caching"]
-            ToolCache[Tool Cache]
-            SessionCache[Session Cache]
+            ToolCache["Tool Cache"]
+            SessionCache["Session Cache"]
         end
     end
 
     subgraph External["External MCP Servers"]
-        Notion[Notion MCP]
-        Slack[Slack MCP]
-        Custom[Custom MCP]
+        Notion["Notion MCP"]
+        Slack["Slack MCP"]
+        Custom["Custom MCP"]
     end
 
     subgraph Storage["Data Storage"]
-        DB[(PostgreSQL)]
-        Redis[(Redis)]
-        Secrets[(Vault)]
+        DB[("PostgreSQL")]
+        Redis[("Redis")]
+        Secrets[("Vault")]
     end
 
     Routes --> Controller
@@ -51,6 +51,3 @@ graph TB
     ClientPool -.-> Notion
     ClientPool -.-> Slack
     ClientPool -.-> Custom
-
-    style Laravel fill:#1e293b,stroke:#6366f1
-    style MCP fill:#334155,stroke:#818cf8
